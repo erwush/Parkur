@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
 
+    private PlayerHealth healthScript;
     public float health = 100f;
     private float facingDirection = 1;
-    [SerializeField] private bool iFrame = false;
     public float staminaRate = 3f;
     public Rigidbody2D rb;
     public float speed = 20f;
@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         plCollider = GetComponent<Collider2D>();
+        healthScript = GetComponent<PlayerHealth>();
     }
 
 
@@ -124,51 +125,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-    public void Flip()
-    {
-        facingDirection *= -1;
-        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 
-    }
 
-    public void speedReset()
-    {
-        speed = defaultSpd;
-    }
 
-    public void FlashReleased(float consumedAmount)
-    {
-        StartCoroutine(FlashIFrame());
-        float direction = transform.localScale.x;
-        rb.linearVelocity = Vector2.zero;
-        rb.AddForce(new Vector2((consumedAmount * 500) * direction, 0f), forceMode2D);
-        flashAmount = 0f;
-        if (stamina < 0f)
-        {
-            stamina = 0f;
-        }
-        StartCoroutine(StaminaRecharge());
 
-    }
 
-    public IEnumerator FlashIFrame()
-    {
-        iFrame = true;
-        yield return new WaitForSeconds(0.2f);
-        iFrame = false;
-    }
-
-    public void Dash()
-    {
-        if (stamina > 25f)
-        {
-
-            StaminaChange(-25f);
-            float direction = transform.localScale.x;
-            rb.linearVelocity = Vector2.zero;
-            rb.AddForce(new Vector2((dashStrength * 100) * direction, 0f), forceMode2D);
-        }
-    }
 
 
 
@@ -202,6 +163,41 @@ public class PlayerMovement : MonoBehaviour
     //     iFrame = false;
     // }
 
+
+
+    //* Flash Group
+
+    //Function for flipping
+    public void Flip()
+    {
+        facingDirection *= -1;
+        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+
+    }
+
+    //Function for resetting Speed
+    public void speedReset()
+    {
+        speed = defaultSpd;
+    }
+
+    //Function for releasing Flash
+    public void FlashReleased(float consumedAmount)
+    {
+        StartCoroutine(FlashIFrame());
+        float direction = transform.localScale.x;
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(new Vector2((consumedAmount * 500) * direction, 0f), forceMode2D);
+        flashAmount = 0f;
+        if (stamina < 0f)
+        {
+            stamina = 0f;
+        }
+        StartCoroutine(StaminaRecharge());
+
+    }
+
+    //Function for changing Stamina
     public void StaminaChange(float amount)
     {
         stamina += amount;
@@ -213,6 +209,32 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    //Function for Dashing
+    public void Dash()
+    {
+        if (stamina > 25f)
+        {
+
+            StaminaChange(-25f);
+            float direction = transform.localScale.x;
+            rb.linearVelocity = Vector2.zero;
+            rb.AddForce(new Vector2((dashStrength * 100) * direction, 0f), forceMode2D);
+        }
+    }
+
+    //Function for Gizmo
+    void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+        }
+    }
+
+    //Coroutine Group
+
+    //Coroutine for Stamina Recharging
     public IEnumerator StaminaRecharge()
     {
         while (stamina < maxStamina && !flashHolding && !Input.GetButton("Run") && !Input.GetButton("Sprint"))
@@ -224,22 +246,20 @@ public class PlayerMovement : MonoBehaviour
         {
             stamina = maxStamina;
         }
-        if(stamina < 0f)
+        if (stamina < 0f)
         {
             stamina = 0f;
         }
     }
 
-
-
-
-
-    void OnDrawGizmosSelected()
+    //Coroutine for IFrame while using Flash 
+    public IEnumerator FlashIFrame()
     {
-        if (groundCheck != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
-        }
+        healthScript.iFrame = true;
+        yield return new WaitForSeconds(0.2f);
+        healthScript.iFrame = false;
     }
+
+
+
 }
