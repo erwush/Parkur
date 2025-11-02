@@ -2,7 +2,7 @@
 
 ## Credit:
 - Me obviously
-- Vinc as Game Designer and Looking for Online Asset
+- Vinc as Game Designer and also the one that looking for the online asset we use
 - Cainos from Itch.io for the amazing tileset (https://cainos.itch.io/pixel-art-platformer-village-props)
 - Minecraft / Mojang / Microsoft for Some Minecraft Asset we use
 
