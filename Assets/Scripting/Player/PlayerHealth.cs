@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     public float health = 100f;
     public float maxHealth = 100f;
     public bool iFrame;
-
     public Transform checkPoint;
+    public BarController healthBar;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,14 +17,13 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        healthBar.UpdateBar(health, maxHealth);
     }
 
 
     //* Function Group
-
     //Function for changing Health
-    void healthChange(float amount)
+    public void HealthChange(float amount)
     {
         if (!iFrame)
         {

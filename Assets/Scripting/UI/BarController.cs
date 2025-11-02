@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-public class StaminaBar : MonoBehaviour
+public class BarController : MonoBehaviour
 {
 
     [SerializeField]private Camera cam;

@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 20f;
     public float defaultSpd = 20f;
     public float maxStamina = 100f;
-    public StaminaBar staminaBar;
+    public BarController staminaBar;
     public float jumpStrength = 10f;
     private Collider2D plCollider;
     public float stamina = 200f;
@@ -45,18 +45,15 @@ public class PlayerMovement : MonoBehaviour
 
 
         // Lompat hanya kalau menyentuh tanah
-        if (Input.GetButtonDown("Jump") && isGrounded && doubleJumped == false || Input.GetButtonDown("Jump") && justJumped && doubleJumped == false)
+        if (Input.GetButtonDown("Jump") && isGrounded || Input.GetButtonDown("Jump") && justJumped)
         {
             rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
             if (isGrounded)
             {
                 justJumped = true;
+                doubleJumped = false;
             }
             else if (justJumped == true && doubleJumped == false)
-            {
-                justJumped = false;
-            }
-            else if (justJumped == true && doubleJumped == true)
             {
                 if (stamina > 15f)
                 {
@@ -65,8 +62,8 @@ public class PlayerMovement : MonoBehaviour
                     justJumped = false;
                     doubleJumped = true;
                 }
-
             }
+
         }
 
         if (Input.GetButtonDown("Dash"))
@@ -78,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Reset"))
         {
-            transform.position = new Vector3(0f, 0f, 0f);
+            transform.position = new Vector3(0f, 5f, 0f);
         }
 
         if (Input.GetButtonDown("Flash"))
