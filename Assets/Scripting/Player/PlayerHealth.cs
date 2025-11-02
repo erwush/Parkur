@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,10 +8,14 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth = 100f;
     public bool iFrame;
     public Transform checkPoint;
+    public Rigidbody2D rb;
     public BarController healthBar;
+    public SpriteRenderer sprite;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        sprite = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
 
     }
 
@@ -18,6 +23,7 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         healthBar.UpdateBar(health, maxHealth);
+
     }
 
 
@@ -38,10 +44,21 @@ public class PlayerHealth : MonoBehaviour
         //go to checkpoint
         if (health <= 0f)
         {
+            // StartCoroutine(Died());
+            rb.linearVelocity = Vector2.zero;
             health = maxHealth;
             transform.position = checkPoint.position;
         }
 
 
     }
+
+
+    //* Coroutine
+
+    //Coroutine for Died
+    // public IEnumerator Died()
+    // {
+
+    // }
 }

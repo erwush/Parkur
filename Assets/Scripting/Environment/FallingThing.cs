@@ -16,12 +16,12 @@ public class FallingThing : MonoBehaviour
     void Start()
     {
         objectCollider = GetComponent<Collider2D>();
-        
+
         triggerArea = GetComponentInChildren<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         pLayer = LayerMask.GetMask("Player");
 
-        healthScript  = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
+        healthScript = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -36,12 +36,12 @@ public class FallingThing : MonoBehaviour
         if (objectCollider.IsTouchingLayers(pLayer))
         {
             DamagePlayer();
-            
+
         }
     }
 
     public void DamagePlayer()
-    {  
+    {
         healthScript.HealthChange(-damage);
         Destroy(gameObject);
     }

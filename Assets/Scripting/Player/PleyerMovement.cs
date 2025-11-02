@@ -75,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Reset"))
         {
+            rb.linearVelocity = Vector2.zero;
             transform.position = new Vector3(0f, 5f, 0f);
         }
 
