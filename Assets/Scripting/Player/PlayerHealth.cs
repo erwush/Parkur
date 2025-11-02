@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     public Rigidbody2D rb;
     public BarController healthBar;
     public SpriteRenderer sprite;
+    public Transform safeArea;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -45,12 +46,24 @@ public class PlayerHealth : MonoBehaviour
         if (health <= 0f)
         {
             // StartCoroutine(Died());
-            rb.linearVelocity = Vector2.zero;
+            ToCheckpoint();
             health = maxHealth;
-            transform.position = checkPoint.position;
+
         }
 
 
+    }
+
+    public void ToCheckpoint()
+    {
+        rb.linearVelocity = Vector2.zero;
+        transform.position = checkPoint.position;
+    }
+
+    public void ToSafe()
+    {
+        rb.linearVelocity = Vector2.zero;
+        transform.position = safeArea.position;
     }
 
 
@@ -59,6 +72,5 @@ public class PlayerHealth : MonoBehaviour
     //Coroutine for Died
     // public IEnumerator Died()
     // {
-
     // }
 }

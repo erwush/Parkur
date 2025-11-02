@@ -23,7 +23,13 @@ public class BorderController : MonoBehaviour
         if (triggerArea.IsTouchingLayers(LayerMask.GetMask("Player")) && borderType == BorderType.BOTTOM)
         {
             pRb.linearVelocity = Vector2.zero;
-            healthScript.HealthChange(-1000f);
+
+            healthScript.HealthChange(-15f);
+            if (healthScript.health <= 0f)
+            {
+                healthScript.ToCheckpoint();
+            }
+            else healthScript.ToSafe();
         }
         
     }

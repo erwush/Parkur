@@ -40,6 +40,8 @@ public class FallingThing : MonoBehaviour
         }
     }
 
+
+
     public void DamagePlayer()
     {
         healthScript.HealthChange(-damage);
