@@ -29,7 +29,7 @@ public class FallingThing : MonoBehaviour
     {
         if (triggerArea.IsTouchingLayers(pLayer))
         {
-            rb.gravityScale = 1f;
+            rb.gravityScale = 10f;
             Destroy(gameObject.GetComponent<BoxCollider2D>());
         }
 

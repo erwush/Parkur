@@ -31,16 +31,20 @@ public class DangerousObject : MonoBehaviour
         if (objectType == ObjectType.Spike)
         {
             healthScript.HealthChange(-10f);
-            if(healthScript.health <= 0f)
+            if (healthScript.health <= 0f)
             {
                 healthScript.ToCheckpoint();
-            } else healthScript.ToSafe();
+            }
+            else
+            {
+                healthScript.ToSafe();
+            }
         }
         else if (objectType == ObjectType.Lava)
         {
-            
+
         }
-        
-        
+
+
     }
 }

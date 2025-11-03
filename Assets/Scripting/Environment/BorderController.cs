@@ -9,7 +9,7 @@ public class BorderController : MonoBehaviour
     public Rigidbody2D pRb;
     [SerializeField] private BorderType borderType;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-     void Start()
+    void Start()
     {
         healthScript = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
         triggerArea = GetComponent<Collider2D>();
@@ -29,8 +29,11 @@ public class BorderController : MonoBehaviour
             {
                 healthScript.ToCheckpoint();
             }
-            else healthScript.ToSafe();
+            else
+            {
+                healthScript.ToSafe();
+            }
         }
-        
+
     }
 }

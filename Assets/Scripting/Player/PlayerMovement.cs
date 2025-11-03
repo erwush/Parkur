@@ -145,7 +145,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //coroutine for recharging stamina
 
 
     // public IEnumerator Dash()

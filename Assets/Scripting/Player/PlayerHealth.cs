@@ -17,7 +17,6 @@ public class PlayerHealth : MonoBehaviour
     {
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-
     }
 
     // Update is called once per frame
@@ -45,32 +44,36 @@ public class PlayerHealth : MonoBehaviour
         //go to checkpoint
         if (health <= 0f)
         {
-            // StartCoroutine(Died());
-            ToCheckpoint();
-            health = maxHealth;
+            StartCoroutine(Died());
+
+
 
         }
 
 
     }
 
-    public void ToCheckpoint()
-    {
-        rb.linearVelocity = Vector2.zero;
-        transform.position = checkPoint.position;
-    }
+
 
     public void ToSafe()
     {
         rb.linearVelocity = Vector2.zero;
         transform.position = safeArea.position;
     }
+    public void ToCheckpoint()
+    {
+        rb.linearVelocity = Vector2.zero;
+        transform.position = checkPoint.position;
+    }
 
 
     //* Coroutine
 
     //Coroutine for Died
-    // public IEnumerator Died()
-    // {
-    // }
+    public IEnumerator Died()
+    {
+        yield return new WaitForSeconds(0.1f);
+        ToCheckpoint();
+        health = maxHealth;
+    }
 }
