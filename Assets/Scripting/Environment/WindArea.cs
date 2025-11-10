@@ -52,7 +52,6 @@ public class WindArea : MonoBehaviour
         if (collision.tag == "Player" && windType == WindType.Continous)
         {
             Debug.Log("Continous");
-            pRb.linearDamping = Damping;
             movementScript.speed = movementScript.defaultSpd * 0.5f;
             pRb.AddForce(windVector * (forceStrength * 10), ForceMode2D.Force);
         }
